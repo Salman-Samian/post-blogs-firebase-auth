@@ -95,7 +95,8 @@ Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
 
 ##Set up Firebase in your client app using your Firebase configuration:
 
-`import { initializeApp } from 'firebase/app';
+```bash
+import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
 const firebaseConfig = {
@@ -110,12 +111,14 @@ appId: "YOUR_APP_ID",
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-export { auth };`
+export { auth };
+```
 
 ##Authenticate User and Obtain Token
 #For example, sign in a user with email and password:
 
-`import { auth } from './firebase';
+```bash
+import { auth } from './firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 
 async function login(email, password) {
@@ -128,4 +131,5 @@ return token;
 } catch (error) {
 console.error('Error logging in:', error);
 }
-}`
+}
+```
