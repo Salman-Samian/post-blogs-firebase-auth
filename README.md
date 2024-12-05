@@ -133,3 +133,182 @@ console.error('Error logging in:', error);
 }
 }
 ```
+
+## API Endpoints
+
+- POST /auth/login
+- POST /auth/register
+- GET /posts
+- GET /posts/:id
+- POST /posts
+- PUT /posts/:id
+- DELETE /posts/:id
+
+```bash
+
+{
+  "apis": [
+    {
+      "method": "GET",
+      "endpoint": "/posts",
+      "description": "Fetch all posts.",
+      "request_params": {},
+      "response": {
+        "status": 200,
+        "body": [
+          {
+            "id": 1,
+            "title": "Post Title 1",
+            "content": "Content for post 1",
+            "createdAt": "2024-12-05T06:30:00Z"
+          },
+          {
+            "id": 2,
+            "title": "Post Title 2",
+            "content": "Content for post 2",
+            "createdAt": "2024-12-05T06:35:00Z"
+          }
+        ]
+      }
+    },
+    {
+      "method": "GET",
+      "endpoint": "/posts/:id",
+      "description": "Fetch a single post by its ID.",
+      "request_params": {
+        "id": "The ID of the post to retrieve."
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "id": 1,
+          "title": "Post Title 1",
+          "content": "Content for post 1",
+          "createdAt": "2024-12-05T06:30:00Z"
+        }
+      },
+      "error_response": {
+        "status": 404,
+        "body": {
+          "message": "Post not found",
+          "statusCode": 404
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "endpoint": "/posts",
+      "description": "Create a new blog post.",
+      "request_body": {
+        "title": "New Post Title",
+        "content": "This is the content of the new post"
+      },
+      "response": {
+        "status": 201,
+        "body": {
+          "id": 3,
+          "title": "New Post Title",
+          "content": "This is the content of the new post",
+          "createdAt": "2024-12-05T06:40:00Z"
+        }
+      }
+    },
+    {
+      "method": "PUT",
+      "endpoint": "/posts/:id",
+      "description": "Update an existing post by its ID.",
+      "request_params": {
+        "id": "The ID of the post to update."
+      },
+      "request_body": {
+        "title": "Updated Post Title",
+        "content": "Updated content for the post"
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "id": 1,
+          "title": "Updated Post Title",
+          "content": "Updated content for the post",
+          "createdAt": "2024-12-05T06:30:00Z"
+        }
+      },
+      "error_response": {
+        "status": 404,
+        "body": {
+          "message": "Post not found",
+          "statusCode": 404
+        }
+      }
+    },
+    {
+      "method": "DELETE",
+      "endpoint": "/posts/:id",
+      "description": "Delete a post by its ID.",
+      "request_params": {
+        "id": "The ID of the post to delete."
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "message": "Post deleted successfully"
+        }
+      },
+      "error_response": {
+        "status": 404,
+        "body": {
+          "message": "Post not found",
+          "statusCode": 404
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "endpoint": "/posts/set-role",
+      "description": "Set the role of a user (Admin/User).",
+      "request_body": {
+        "userId": "some-user-id",
+        "role": "admin"
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "message": "Role updated successfully"
+        }
+      },
+      "error_response": {
+        "status": 400,
+        "body": {
+          "message": "Invalid role or user ID",
+          "statusCode": 400
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "endpoint": "/auth/login",
+      "description": "Authenticate and login using Firebase token.",
+      "request_body": {
+        "token": "firebase-id-token"
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "message": "Authentication successful",
+          "userId": "user-id",
+          "email": "user@example.com"
+        }
+      },
+      "error_response": {
+        "status": 401,
+        "body": {
+          "message": "Unauthorized: Missing or invalid token",
+          "statusCode": 401
+        }
+      }
+    }
+  ]
+}
+
+
+```
