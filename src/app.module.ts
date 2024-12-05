@@ -5,6 +5,7 @@ import { PostsModule } from './posts/posts.module';
 import { Post } from './posts/post.entity';
 import { FirebaseAdminService } from './firebase/firebase-admin.service';
 import { FirebaseAuthMiddleware } from './middleware/firebase-auth.middleware';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -26,11 +27,12 @@ import { FirebaseAuthMiddleware } from './middleware/firebase-auth.middleware';
       inject: [ConfigService],
     }),
     PostsModule,
+    AuthModule,
   ],
   providers: [FirebaseAdminService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(FirebaseAuthMiddleware).forRoutes('*'); // Apply middleware globally
+    consumer.apply(FirebaseAuthMiddleware).forRoutes('*');
   }
 }
