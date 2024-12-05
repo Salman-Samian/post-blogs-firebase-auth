@@ -84,7 +84,7 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 
 Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
 
-I used the following packages:
+##I used the following packages:
 
 - @nestjs/typeorm: For database integration.
 - typeorm: ORM for interacting with Postgres.
@@ -92,3 +92,40 @@ I used the following packages:
 - firebase-admin: For Firebase Authentication.
 - class-validator/class-transformer: For input validation.
 - multer: For handling file uploads (image storage).
+
+##Set up Firebase in your client app using your Firebase configuration:
+
+`import { initializeApp } from 'firebase/app';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+
+const firebaseConfig = {
+apiKey: "YOUR_API_KEY",
+authDomain: "YOUR_AUTH_DOMAIN",
+projectId: "YOUR_PROJECT_ID",
+storageBucket: "YOUR_STORAGE_BUCKET",
+messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+appId: "YOUR_APP_ID",
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+export { auth };`
+
+##Authenticate User and Obtain Token
+#For example, sign in a user with email and password:
+
+`import { auth } from './firebase';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+
+async function login(email, password) {
+try {
+const userCredential = await signInWithEmailAndPassword(auth, email, password);
+const user = userCredential.user;
+const token = await user.getIdToken(); // Get the ID token
+console.log('ID Token:', token);
+return token;
+} catch (error) {
+console.error('Error logging in:', error);
+}
+}`

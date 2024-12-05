@@ -1,12 +1,16 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
-import { FirebaseAdminService } from 'src/firebase/firebase-admin.service';
+import { FirebaseAdminService } from '../firebase/firebase-admin.service';
 
 @Injectable()
 export class FirebaseAuthMiddleware implements NestMiddleware {
   constructor(private readonly firebaseAdminService: FirebaseAdminService) {}
 
   async use(req: Request, res: Response, next: NextFunction) {
+    if (req.method === 'GET' && req.path === '/') {
+      return next();
+    }
+
     const authHeader = req.headers.authorization;
 
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
